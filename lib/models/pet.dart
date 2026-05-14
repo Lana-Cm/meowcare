@@ -2,11 +2,12 @@ class Pet {
   final int id;
   final String nome;
   final String descricao;
-  // Novos campos adicionados:
   final String idade;
   final String peso;
   final String raca;
   final String humor;
+  bool
+  isFavorite; // 1. Adicionamos essa variável (sem o 'final' para podermos mudar)
 
   Pet({
     required this.id,
@@ -16,6 +17,7 @@ class Pet {
     this.peso = '',
     this.raca = '',
     this.humor = '',
+    this.isFavorite = false, // 2. Por padrão, o pet não nasce favorito
   });
 
   factory Pet.fromJson(Map<String, dynamic> json) {
@@ -23,12 +25,12 @@ class Pet {
       id: json['id'],
       nome: json['title'] ?? '',
       descricao: json['body'] ?? '',
-      // Mapeando os novos campos do JSON
-      // O ?? '' garante que o app não quebre se o campo vier vazio
       idade: json['idade'] ?? '',
       peso: json['peso'] ?? '',
       raca: json['raca'] ?? '',
       humor: json['humor'] ?? '',
+      // 3. Lê do JSON se é favorito, se não vier nada, coloca falso
+      isFavorite: json['isFavorite'] ?? false,
     );
   }
 
@@ -41,6 +43,7 @@ class Pet {
       'peso': peso,
       'raca': raca,
       'humor': humor,
+      'isFavorite': isFavorite, // 4. Salva o status do favorito no JSON
     };
   }
 }
